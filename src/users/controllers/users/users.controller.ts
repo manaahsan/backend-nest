@@ -3,14 +3,17 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  Get,
   ConflictException,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/services/users/users.service';
 import { Body } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/createUser.dto';
-
+import { AuthenticatedGuard } from 'src/auth/utils/sessionSerializer';
+@UseGuards(AuthenticatedGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
